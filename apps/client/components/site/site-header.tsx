@@ -1,22 +1,81 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { Dialog, DialogBackdrop, DialogPanel } from "@headlessui/react";
 import { ArrowUpRight, Menu, X } from "lucide-react";
 import { Logo } from "@/components/site/logo";
 import { company, nav } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
-export function SiteHeader() {
-  const [scrolled, setScrolled] = useState(false);
-  const [open, setOpen] = useState(false);
+const desktopNav = nav.slice(0, -1);
 
+// --- Scroll position as an external store (no setState in an effect) ---
+function subscribeToScroll(callback: () => void) {
+  window.addEventListener("scroll", callback, { passive: true });
+  return () => window.removeEventListener("scroll", callback);
+}
+const getScrolled = () => window.scrollY > 24;
+const getServerScrolled = () => false;
+
+export function SiteHeader() {
+  const [open, setOpen] = useState(false);
+  const [active, setActive] = useState<string | null>(null);
+
+  const scrolled = useSyncExternalStore(subscribeToScroll, getScrolled, getServerScrolled);
+
+  const navRef = useRef<HTMLElement>(null);
+  const underlineRef = useRef<HTMLSpanElement>(null);
+
+  // Scroll-spy: the callback runs on load too, so a URL hash like #about is picked up automatically
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 24);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    const sections = desktopNav
+      .map((item) => document.getElementById(item.href.replace("#", "")))
+      .filter((el): el is HTMLElement => el !== null);
+
+    if (sections.length === 0) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) setActive(`#${entry.target.id}`);
+        });
+      },
+      { rootMargin: "-40% 0px -55% 0px" },
+    );
+
+    sections.forEach((section) => observer.observe(section));
+    return () => observer.disconnect();
   }, []);
+
+  // Position the underline by writing directly to the DOM (syncing with an external system)
+  useEffect(() => {
+    const line = underlineRef.current;
+    if (!active || !line) return;
+
+    const link = navRef.current?.querySelector<HTMLAnchorElement>(`a[href="${active}"]`);
+    if (!link) return;
+
+    const position = () => {
+      line.style.transform = `translateX(${link.offsetLeft}px)`;
+      line.style.width = `${link.offsetWidth}px`;
+    };
+
+    position();
+
+    // Enable transitions only after the first placement, so it doesn't slide in from the left
+    const frame = requestAnimationFrame(() => {
+      line.dataset.ready = "true";
+    });
+
+    window.addEventListener("resize", position);
+    return () => {
+      cancelAnimationFrame(frame);
+      window.removeEventListener("resize", position);
+    };
+  }, [active]);
+
+  // Hide the underline while at the very top of the page (hero section)
+  const showUnderline = active !== null && scrolled;
 
   return (
     <header
@@ -30,16 +89,37 @@ export function SiteHeader() {
           <Logo preload className="h-8 sm:h-9" />
         </a>
 
-        <nav aria-label="Main" className="hidden items-center gap-8 lg:flex">
-          {nav.slice(0, -1).map((item) => (
+        <nav
+          ref={navRef}
+          aria-label="Main"
+          className="relative hidden items-center gap-8 lg:flex"
+        >
+          {desktopNav.map((item) => (
             <a
               key={item.href}
               href={item.href}
-              className="py-3 text-sm text-white/70 transition-colors hover:text-white"
+              onClick={() => setActive(item.href)}
+              aria-current={active === item.href ? "true" : undefined}
+              className={cn(
+                "py-3 text-sm transition-colors hover:text-white",
+                active === item.href ? "text-white" : "text-white/70",
+              )}
             >
               {item.label}
             </a>
           ))}
+
+          {/* Sliding underline */}
+          <span
+            ref={underlineRef}
+            aria-hidden
+            className={cn(
+              "pointer-events-none absolute bottom-1 left-0 h-0.5 rounded-full bg-brand will-change-transform",
+              "data-[ready=true]:transition-[transform,width,opacity] data-[ready=true]:duration-500 data-[ready=true]:ease-out-expo",
+              "motion-reduce:transition-none",
+              showUnderline ? "opacity-100" : "opacity-0",
+            )}
+          />
         </nav>
 
         <a
