@@ -28,7 +28,7 @@ export function About() {
           <Reveal className="relative aspect-4/3 overflow-hidden rounded-2xl bg-ink-950/5 lg:aspect-auto">
             <LoadingImage
               tone="light"
-              src="/images/terminal-sunset.jpg"
+              src="/images/intank-convoy.png"
               alt="Intank Petroleum terminal at dusk"
               fill
               sizes="(min-width: 1024px) 50vw, 100vw"
