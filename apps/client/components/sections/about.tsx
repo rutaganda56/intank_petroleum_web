@@ -1,4 +1,4 @@
-import Image from "next/image";
+import { LoadingImage } from "@/components/site/loading-image";
 import { Reveal } from "@/components/motion/reveal";
 import { SplitHeading } from "@/components/motion/split-heading";
 
@@ -25,8 +25,9 @@ export function About() {
               </p>
             </Reveal>
           </div>
-          <Reveal className="relative aspect-4/3 overflow-hidden rounded-2xl lg:aspect-auto">
-            <Image
+          <Reveal className="relative aspect-4/3 overflow-hidden rounded-2xl bg-ink-950/5 lg:aspect-auto">
+            <LoadingImage
+              tone="light"
               src="/images/terminal-sunset.jpg"
               alt="Intank Petroleum terminal at dusk"
               fill

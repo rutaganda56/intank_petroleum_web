@@ -36,6 +36,7 @@ export function Security() {
           <BackgroundVideo
             src="/videos/control-room.mp4"
             poster="/videos/control-room-poster.jpg"
+            skeleton
             className="absolute inset-0 size-full object-cover"
           />
           <div className="absolute inset-0 bg-linear-to-t from-ink-950/90 via-transparent to-transparent" />

@@ -4,6 +4,7 @@ import { GlowCard } from "@/components/motion/glow-card";
 import { Reveal } from "@/components/motion/reveal";
 import { SplitHeading } from "@/components/motion/split-heading";
 import { ContactForm } from "@/components/sections/contact-form";
+import { MapFrame } from "@/components/sections/map-frame";
 import { company } from "@/lib/site";
 
 export function Contact() {
@@ -87,12 +88,9 @@ export function Contact() {
         </div>
 
         <Reveal className="relative mt-16 h-80 overflow-hidden rounded-3xl border border-white/10 sm:h-96">
-          <iframe
+          <MapFrame
             title={`Map showing the ${company.name} head office`}
             src={`https://maps.google.com/maps?q=${query}&z=16&output=embed`}
-            loading="lazy"
-            referrerPolicy="no-referrer-when-downgrade"
-            className="absolute inset-0 size-full border-0 filter-[invert(90%)_hue-rotate(180deg)_saturate(0.6)_brightness(0.95)]"
           />
           <div className="pointer-events-none absolute inset-x-0 bottom-0 bg-linear-to-t from-ink-950/90 to-transparent p-5 pt-16 sm:p-7">
             <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">

@@ -242,6 +242,39 @@
     }
 }
 
+/* Loading placeholder for media: a soft band of light sweeping across. */
+.skeleton {
+    overflow: hidden;
+    background-color: rgb(255 255 255 / 0.05);
+}
+
+.skeleton-light {
+    background-color: rgb(5 7 13 / 0.06);
+}
+
+.skeleton::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    transform: translateX(-100%);
+    background: linear-gradient(100deg, transparent 20%, rgb(255 255 255 / 0.09) 50%, transparent 80%);
+    animation: skeleton-shimmer 1.6s ease-in-out infinite;
+}
+
+.skeleton-light::after {
+    background: linear-gradient(100deg, transparent 20%, rgb(255 255 255 / 0.7) 50%, transparent 80%);
+}
+
+@keyframes skeleton-shimmer {
+    to { transform: translateX(100%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .skeleton::after {
+        display: none;
+    }
+}
+
 @utility container-x {
     @apply mx-auto w-full max-w-7xl px-4 sm:px-8;
 }

@@ -1,5 +1,13 @@
+import { cacheLife } from "next/cache";
 import { Logo } from "@/components/site/logo";
 import { company, nav } from "@/lib/site";
+
+/** Current year, cached so the page stays prerendered; it rolls over within a day of New Year. */
+async function CopyrightYear() {
+  "use cache";
+  cacheLife("days");
+  return <>{new Date().getFullYear()}</>;
+}
 
 export function SiteFooter() {
   return (
@@ -38,7 +46,9 @@ export function SiteFooter() {
       </div>
       <div className="border-t border-white/10">
         <div className="container-x flex flex-col gap-2 py-6 text-xs tracking-wide text-white/40 sm:flex-row sm:justify-between">
-          <p>&copy; {company.legalName}. All rights reserved.</p>
+          <p>
+            &copy; <CopyrightYear /> {company.legalName}. All rights reserved.
+          </p>
           <p>A member of {company.group}</p>
         </div>
       </div>

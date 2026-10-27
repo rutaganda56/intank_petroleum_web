@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+import { cn } from "@/lib/utils";
 
 type BackgroundVideoProps = {
   src: string;
@@ -8,11 +9,19 @@ type BackgroundVideoProps = {
   className?: string;
   /** Time ranges in seconds, [from, to), that playback jumps over. */
   skip?: readonly (readonly [number, number])[];
+  /** Show a shimmering placeholder until the first frame is ready. Needs a positioned parent. */
+  skeleton?: boolean;
 };
 
 /** Muted looping video that stays on its poster frame when the viewer prefers reduced motion. */
-export function BackgroundVideo({ src, poster, className, skip }: BackgroundVideoProps) {
+export function BackgroundVideo({ src, poster, className, skip, skeleton = false }: BackgroundVideoProps) {
   const ref = useRef<HTMLVideoElement>(null);
+  const [loaded, setLoaded] = useState(false);
+
+  useEffect(() => {
+    // The first frame may already be decoded before React hydrates.
+    if ((ref.current?.readyState ?? 0) >= 2) setLoaded(true);
+  }, []);
 
   useEffect(() => {
     const video = ref.current;
@@ -48,16 +57,20 @@ export function BackgroundVideo({ src, poster, className, skip }: BackgroundVide
   }, [skip]);
 
   return (
-    <video
-      ref={ref}
-      className={className}
-      src={src}
-      poster={poster}
-      muted
-      loop
-      playsInline
-      preload="metadata"
-      aria-hidden="true"
-    />
+    <>
+      {skeleton && !loaded && <span aria-hidden="true" className="skeleton absolute inset-0" />}
+      <video
+        ref={ref}
+        className={cn(skeleton && "transition-opacity duration-700", skeleton && !loaded && "in-[.js]:opacity-0", className)}
+        src={src}
+        poster={poster}
+        muted
+        loop
+        playsInline
+        preload="metadata"
+        aria-hidden="true"
+        onLoadedData={() => setLoaded(true)}
+      />
+    </>
   );
 }

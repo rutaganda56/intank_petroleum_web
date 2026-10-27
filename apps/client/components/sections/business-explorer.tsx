@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useState, type KeyboardEvent } from "react";
-import Image from "next/image";
+import { LoadingImage } from "@/components/site/loading-image";
 import { AnimatePresence, motion } from "motion/react";
 import { Check, ChevronDown } from "lucide-react";
 import { GlowCard } from "@/components/motion/glow-card";
@@ -112,7 +112,7 @@ export function BusinessExplorer() {
               animate={{ opacity: i === active ? 1 : 0, scale: i === active ? 1 : 1.06 }}
               transition={{ duration: 0.8, ease }}
             >
-              <Image
+              <LoadingImage
                 src={capability.image}
                 alt={capability.alt}
                 fill
@@ -178,7 +178,7 @@ export function BusinessExplorer() {
                   >
                     <div className="pb-8">
                       <div className="relative aspect-16/10 overflow-hidden rounded-2xl">
-                        <Image src={capability.image} alt={capability.alt} fill sizes="100vw" className="object-cover" />
+                        <LoadingImage src={capability.image} alt={capability.alt} fill sizes="100vw" className="object-cover" />
                       </div>
                       <p className="mt-5 leading-relaxed text-white/60">{capability.body}</p>
                       <div className="mt-5">
