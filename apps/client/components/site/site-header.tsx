@@ -9,7 +9,7 @@ import { cn } from "@/lib/utils";
 
 const desktopNav = nav.slice(0, -1);
 
-// --- Scroll position as an external store (no setState in an effect) ---
+
 function subscribeToScroll(callback: () => void) {
   window.addEventListener("scroll", callback, { passive: true });
   return () => window.removeEventListener("scroll", callback);
@@ -26,7 +26,6 @@ export function SiteHeader() {
   const navRef = useRef<HTMLElement>(null);
   const underlineRef = useRef<HTMLSpanElement>(null);
 
-  // Scroll-spy: the callback runs on load too, so a URL hash like #about is picked up automatically
   useEffect(() => {
     const sections = desktopNav
       .map((item) => document.getElementById(item.href.replace("#", "")))
@@ -47,7 +46,7 @@ export function SiteHeader() {
     return () => observer.disconnect();
   }, []);
 
-  // Position the underline by writing directly to the DOM (syncing with an external system)
+
   useEffect(() => {
     const line = underlineRef.current;
     if (!active || !line) return;
@@ -62,7 +61,7 @@ export function SiteHeader() {
 
     position();
 
-    // Enable transitions only after the first placement, so it doesn't slide in from the left
+
     const frame = requestAnimationFrame(() => {
       line.dataset.ready = "true";
     });
@@ -74,7 +73,7 @@ export function SiteHeader() {
     };
   }, [active]);
 
-  // Hide the underline while at the very top of the page (hero section)
+
   const showUnderline = active !== null && scrolled;
 
   return (
@@ -109,7 +108,7 @@ export function SiteHeader() {
             </a>
           ))}
 
-          {/* Sliding underline */}
+
           <span
             ref={underlineRef}
             aria-hidden
