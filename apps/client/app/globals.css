@@ -1,1 +1,265 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
 
+@custom-variant dark (&:is(.dark *));
+
+/* Intank brand palette, sampled from the logo and intankpetroleum.com. */
+@theme {
+    --color-ink-950: #05070d;
+    --color-ink-900: #0a0f1a;
+    --color-ink-800: #111a2b;
+    --color-navy: #10223a;
+    --color-brand: #2681c7;
+    --color-brand-300: #7db6e3;
+    /* Lighter accent used by intankpetroleum.com, for highlights on dark backgrounds. */
+    --color-brand-bright: #4a9fdb;
+    --color-paper: #f5f6f8;
+    --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@theme inline {
+    --font-heading: var(--font-grotesk);
+    --font-sans: var(--font-inter);
+    --font-mono: var(--font-jetbrains);
+    --color-sidebar-ring: var(--sidebar-ring);
+    --color-sidebar-border: var(--sidebar-border);
+    --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+    --color-sidebar-accent: var(--sidebar-accent);
+    --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+    --color-sidebar-primary: var(--sidebar-primary);
+    --color-sidebar-foreground: var(--sidebar-foreground);
+    --color-sidebar: var(--sidebar);
+    --color-chart-5: var(--chart-5);
+    --color-chart-4: var(--chart-4);
+    --color-chart-3: var(--chart-3);
+    --color-chart-2: var(--chart-2);
+    --color-chart-1: var(--chart-1);
+    --color-ring: var(--ring);
+    --color-input: var(--input);
+    --color-border: var(--border);
+    --color-destructive: var(--destructive);
+    --color-accent-foreground: var(--accent-foreground);
+    --color-accent: var(--accent);
+    --color-muted-foreground: var(--muted-foreground);
+    --color-muted: var(--muted);
+    --color-secondary-foreground: var(--secondary-foreground);
+    --color-secondary: var(--secondary);
+    --color-primary-foreground: var(--primary-foreground);
+    --color-primary: var(--primary);
+    --color-popover-foreground: var(--popover-foreground);
+    --color-popover: var(--popover);
+    --color-card-foreground: var(--card-foreground);
+    --color-card: var(--card);
+    --color-foreground: var(--foreground);
+    --color-background: var(--background);
+    --radius-sm: calc(var(--radius) * 0.6);
+    --radius-md: calc(var(--radius) * 0.8);
+    --radius-lg: var(--radius);
+    --radius-xl: calc(var(--radius) * 1.4);
+    --radius-2xl: calc(var(--radius) * 1.8);
+    --radius-3xl: calc(var(--radius) * 2.2);
+    --radius-4xl: calc(var(--radius) * 2.6);
+}
+
+:root {
+    --background: oklch(1 0 0);
+    --foreground: oklch(0.145 0 0);
+    --card: oklch(1 0 0);
+    --card-foreground: oklch(0.145 0 0);
+    --popover: oklch(1 0 0);
+    --popover-foreground: oklch(0.145 0 0);
+    --primary: #2681c7;
+    --primary-foreground: oklch(0.985 0 0);
+    --secondary: oklch(0.97 0 0);
+    --secondary-foreground: oklch(0.205 0 0);
+    --muted: oklch(0.97 0 0);
+    --muted-foreground: oklch(0.556 0 0);
+    --accent: oklch(0.97 0 0);
+    --accent-foreground: oklch(0.205 0 0);
+    --destructive: oklch(0.577 0.245 27.325);
+    --border: oklch(0.922 0 0);
+    --input: oklch(0.922 0 0);
+    --ring: #2681c7;
+    --chart-1: oklch(0.87 0 0);
+    --chart-2: oklch(0.556 0 0);
+    --chart-3: oklch(0.439 0 0);
+    --chart-4: oklch(0.371 0 0);
+    --chart-5: oklch(0.269 0 0);
+    --radius: 0.625rem;
+    --sidebar: oklch(0.985 0 0);
+    --sidebar-foreground: oklch(0.145 0 0);
+    --sidebar-primary: oklch(0.205 0 0);
+    --sidebar-primary-foreground: oklch(0.985 0 0);
+    --sidebar-accent: oklch(0.97 0 0);
+    --sidebar-accent-foreground: oklch(0.205 0 0);
+    --sidebar-border: oklch(0.922 0 0);
+    --sidebar-ring: oklch(0.708 0 0);
+}
+
+.dark {
+    --background: oklch(0.145 0 0);
+    --foreground: oklch(0.985 0 0);
+    --card: oklch(0.205 0 0);
+    --card-foreground: oklch(0.985 0 0);
+    --popover: oklch(0.205 0 0);
+    --popover-foreground: oklch(0.985 0 0);
+    --primary: oklch(0.922 0 0);
+    --primary-foreground: oklch(0.205 0 0);
+    --secondary: oklch(0.269 0 0);
+    --secondary-foreground: oklch(0.985 0 0);
+    --muted: oklch(0.269 0 0);
+    --muted-foreground: oklch(0.708 0 0);
+    --accent: oklch(0.269 0 0);
+    --accent-foreground: oklch(0.985 0 0);
+    --destructive: oklch(0.704 0.191 22.216);
+    --border: oklch(1 0 0 / 10%);
+    --input: oklch(1 0 0 / 15%);
+    --ring: oklch(0.556 0 0);
+    --chart-1: oklch(0.87 0 0);
+    --chart-2: oklch(0.556 0 0);
+    --chart-3: oklch(0.439 0 0);
+    --chart-4: oklch(0.371 0 0);
+    --chart-5: oklch(0.269 0 0);
+    --sidebar: oklch(0.205 0 0);
+    --sidebar-foreground: oklch(0.985 0 0);
+    --sidebar-primary: oklch(0.488 0.243 264.376);
+    --sidebar-primary-foreground: oklch(0.985 0 0);
+    --sidebar-accent: oklch(0.269 0 0);
+    --sidebar-accent-foreground: oklch(0.985 0 0);
+    --sidebar-border: oklch(1 0 0 / 10%);
+    --sidebar-ring: oklch(0.556 0 0);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+    }
+  body {
+    @apply bg-background text-foreground;
+    }
+  html {
+    @apply font-sans scroll-smooth;
+    scroll-padding-top: 5rem;
+    }
+}
+
+/* Large headings read better slightly tightened. */
+.font-heading {
+    letter-spacing: -0.02em;
+}
+
+/* Glow card: a light that travels along the card edge toward the pointer, in the style of
+   eleeeh.com. GlowCard sets --edge (0-100, pointer distance from centre to edge) and --angle. */
+.glow-card {
+    --edge: 0;
+    --angle: 45deg;
+    --glow: 38 129 199;
+    --glow-accent: 74 159 219;
+    position: relative;
+    isolation: isolate;
+}
+
+.glow-card::before,
+.glow-card > .glow-edge {
+    opacity: calc((var(--edge) - 30) / 70);
+    transition: opacity 0.3s ease-out;
+    pointer-events: none;
+}
+
+.glow-card:not(:hover):not([data-glow-loop])::before,
+.glow-card:not(:hover):not([data-glow-loop]) > .glow-edge {
+    opacity: 0;
+    transition-duration: 0.8s;
+}
+
+/* Sharp coloured ring on the border, brightest toward the pointer. */
+.glow-card::before {
+    content: "";
+    position: absolute;
+    inset: -1px;
+    z-index: 2;
+    border-radius: inherit;
+    padding: 1px;
+    background: conic-gradient(
+        from var(--angle),
+        rgb(var(--glow)) 0%,
+        rgb(var(--glow-accent)) 9%,
+        transparent 22%,
+        transparent 78%,
+        rgb(var(--glow-accent)) 91%,
+        rgb(var(--glow)) 100%
+    );
+    mask:
+        linear-gradient(#000 0 0) content-box exclude,
+        linear-gradient(#000 0 0);
+}
+
+/* Soft light spilling inside and outside the edge. The span is taller than the card so the
+   outer glow is not clipped by its mask. */
+.glow-card > .glow-edge {
+    position: absolute;
+    inset: -24px -1px;
+    z-index: 2;
+    border-radius: inherit;
+    mask-image: conic-gradient(from var(--angle) at center, #000 2.5%, transparent 12%, transparent 88%, #000 97.5%);
+    mix-blend-mode: plus-lighter;
+}
+
+.glow-card > .glow-edge::before {
+    content: "";
+    position: absolute;
+    inset: 24px 0;
+    border-radius: inherit;
+    box-shadow:
+        inset 0 0 0 1px rgb(var(--glow)),
+        inset 0 0 6px 0 rgb(var(--glow) / 0.6),
+        inset 0 0 28px 2px rgb(var(--glow) / 0.3),
+        0 0 6px 0 rgb(var(--glow) / 0.6),
+        0 0 28px 3px rgb(var(--glow) / 0.4),
+        0 0 56px 4px rgb(var(--glow) / 0.2);
+}
+
+/* Hero scroll cue: a short light that runs down a thin line. */
+.scroll-cue::after {
+    content: "";
+    position: absolute;
+    inset-inline: 0;
+    top: -40%;
+    height: 40%;
+    background: linear-gradient(to bottom, transparent, var(--color-brand-bright));
+    animation: scroll-cue 2s cubic-bezier(0.65, 0, 0.35, 1) infinite;
+}
+
+@keyframes scroll-cue {
+    to { top: 100%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .scroll-cue::after {
+        animation: none;
+        top: 30%;
+    }
+}
+
+@utility container-x {
+    @apply mx-auto w-full max-w-7xl px-4 sm:px-8;
+}
+
+@utility label-text {
+    @apply text-sm font-medium;
+}
+
+/* Text animated by GSAP stays hidden until it has been split, to avoid a flash of
+   unstyled text. Without JS or with reduced motion it is shown immediately. */
+@media (prefers-reduced-motion: no-preference) {
+    .js [data-split]:not([data-split-ready]) {
+        visibility: hidden;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+}
