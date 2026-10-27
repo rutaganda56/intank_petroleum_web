@@ -1,5 +1,5 @@
 {
-  "name": "intank_pretroleum_client",
+  "name": "@intank/client",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -9,6 +9,7 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@intank/shared-types": "workspace:*",
     "next": "16.4.3",
     "react": "19.3.0",
     "react-dom": "19.3.0"

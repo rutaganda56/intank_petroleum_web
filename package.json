@@ -1,0 +1,20 @@
+{
+  "name": "intank-petroleum-web",
+  "private": true,
+  "packageManager": "pnpm@11.27.1",
+  "scripts": {
+    "dev": "pnpm -r --parallel dev",
+    "dev:web": "pnpm --filter \"@intank/client...\" --parallel dev",
+    "dev:api": "pnpm --filter @intank/api dev",
+    "build": "pnpm -r build",
+    "build:web": "pnpm --filter \"@intank/client...\" build",
+    "build:api": "pnpm --filter @intank/api build",
+    "start:web": "pnpm --filter @intank/client start",
+    "start:api": "pnpm --filter @intank/api start",
+    "lint": "pnpm -r lint",
+    "typecheck": "pnpm -r typecheck"
+  },
+  "devDependencies": {
+    "typescript": "^5.6.0"
+  }
+}
