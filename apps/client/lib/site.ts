@@ -20,6 +20,7 @@ export const nav = [
   { label: "About", href: "#about" },
   { label: "Business", href: "#business" },
   { label: "Supply Chain", href: "#supply-chain" },
+  { label: "Our Markets", href: "#markets" },
   { label: "Products", href: "#products" },
   { label: "Security of Supply", href: "#security" },
   { label: "Contact", href: "#contact" },
