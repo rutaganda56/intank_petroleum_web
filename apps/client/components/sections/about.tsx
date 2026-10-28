@@ -13,15 +13,18 @@ export function About() {
             </SplitHeading>
             <Reveal className="mt-8 space-y-5 leading-relaxed text-ink-950/70">
               <p>
-                Intank Petroleum Ltd is a physical energy and petroleum-products company focused on the
-                storage, movement, distribution and supply of refined petroleum products. We connect
-                international and regional sources of supply with commercial, industrial, transport and
-                institutional demand.
+                Intank Petroleum Ltd is a physical energy trading and petroleum-products 
+                company focused on the trading, storage, logistics, distribution and supply
+                of refined petroleum products. We connect international and regional supply 
+                markets with commercial, industrial, transport and institutional demand through
+                integrated trading, supply and logistics solutions.
               </p>
               <p>
-                Headquartered in Kigali, our strategy is centred on security of supply, efficient product
-                movement, strategic infrastructure and long-term market access, with an established base in
-                Rwanda and a clear ambition to expand across East Africa.
+                Headquartered in Kigali, our strategy is centred on commodity trading, security of
+                supply, efficient product movement, strategic infrastructure and long-term market
+                access. With an established base in Rwanda, we aim to build a strong regional trading
+                and supply platform, supporting energy markets across East Africa, including Kenya and
+                Tanzania.
               </p>
             </Reveal>
           </div>
