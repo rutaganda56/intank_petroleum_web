@@ -56,6 +56,30 @@ export const capabilities = [
     ],
   },
   {
+    title:"Petroleum Trading & Supply",
+    image: "/images/intank-convoy.png",
+    alt: "Intank petroleum trading and supply operations",
+    body:" International and regional sourcing, competitive tendering, commercial negotiations and transparent pricing structures",
+    points:[
+      "International and Regional Sourcing",
+      "Competitive Tendering",
+      "Commercial Negotiations",
+      "Transparent Pricing Structures"
+    ]
+  },
+  {
+    title:"Commercial Advisory & Risk Management",
+    image:"/images/terminal-sunset.jpg",
+    alt:"Intank petroleum trading and supply operations",
+    body:"Pricing strategy, commodity hedging, exposure management and commercial performance oversight.",
+    points:[
+      "Pricing Strategy",
+      "Commodity Hedging",
+      "Exposure Management",
+      "Commercial Performance Oversight"
+    ]
+  },
+  {
     title: "Logistics & Distribution",
     image: "/images/tanker-detail.jpg",
     alt: "Intank branded fuel tanker truck",
@@ -131,6 +155,7 @@ export const products = [
   { name: "Fuel Oil", use: "Industrial heating and power" },
   { name: "LPG", use: "Commercial and domestic energy" },
   { name: "Lubricants", use: "Fleet, machinery and industrial use" },
+  {name:"NGL", use:"natural gas liquids for industrial and energy applications"},
 ] as const;
 
 export const securityOfSupply = [
@@ -140,6 +165,8 @@ export const securityOfSupply = [
   "Inventory and product-flow visibility",
   "Long-term customer and supplier relationships",
   "Commercial structures designed around continuity of supply",
+  "Physical petroleum trading and supply optimisation",
+  "Commodity price risk management and hedging strategies"
 ] as const;
 
 export const strengths = [
