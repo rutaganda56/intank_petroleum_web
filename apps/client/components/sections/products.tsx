@@ -10,6 +10,7 @@ const icons: Record<(typeof products)[number]["name"], LucideIcon> = {
   "Fuel Oil": Factory,
   LPG: Flame,
   Lubricants: Cog,
+  NGL:Fuel,
 };
 
 export function Products() {
