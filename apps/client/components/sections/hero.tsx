@@ -30,8 +30,8 @@ export function Hero() {
         </SplitHeading>
 
         <Reveal delay={0.9}>
-          <p className="mt-8 max-w-xl text-base leading-relaxed text-white/70 sm:text-lg">
-            Reliable petroleum supply, strategic infrastructure and long-term market access across East Africa.
+          <p className="lead-text mt-8 max-w-xl text-white/70">
+            International petroleum trading, supply and infrastructure, with a focus on East Africa.
           </p>
           <div className="mt-10 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
             <a

@@ -38,7 +38,7 @@ export function Contact() {
             >
               Fueling progress, together.
             </SplitHeading>
-            <Reveal className="mt-6 max-w-md leading-relaxed text-white/65">
+            <Reveal className="lead-text mt-6 max-w-md text-white/65">
               Whether you are a commercial fuel customer, supplier, financier or public-sector partner, our team
               would like to hear from you.
             </Reveal>

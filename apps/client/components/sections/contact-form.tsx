@@ -94,7 +94,7 @@ export function ContactForm() {
     <form onSubmit={onSubmit} className="grid gap-5 p-6 sm:grid-cols-2 sm:p-10">
       <div className="sm:col-span-2">
         <h3 className="font-heading text-3xl font-medium">Send us an enquiry</h3>
-        <p className="mt-2 text-white/55">Tell us what you need and the right team will get back to you.</p>
+        <p className="mt-2 leading-relaxed text-white/55">Tell us what you need and the right team will get back to you.</p>
       </div>
 
       <FormField label="Full name">

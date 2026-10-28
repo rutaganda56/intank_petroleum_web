@@ -11,7 +11,7 @@ export function About() {
             <SplitHeading accent="Intank Group." className="font-heading text-4xl leading-tight font-medium sm:text-5xl">
               The midstream and downstream platform of Intank Group.
             </SplitHeading>
-            <Reveal className="mt-8 space-y-5 leading-relaxed text-ink-950/70">
+            <Reveal className="lead-text mt-8 space-y-5 text-ink-950/70">
               <p>
                 Intank Petroleum Ltd is a physical energy trading and petroleum-products 
                 company focused on the trading, storage, logistics, distribution and supply

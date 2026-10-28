@@ -10,7 +10,7 @@ export function WhyIntank() {
           <SplitHeading accent="scalable supply." className="font-heading text-4xl leading-tight font-medium sm:text-5xl">
             The foundations for dependable, scalable supply.
           </SplitHeading>
-          <Reveal className="mt-6 leading-relaxed text-ink-950/60">
+          <Reveal className="lead-text mt-6 text-ink-950/60">
             A focused physical-energy model, integrated capability across the supply chain and a network of
             strategic relationships.
           </Reveal>

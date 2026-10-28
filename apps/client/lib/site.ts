@@ -30,6 +30,8 @@ export const enquiryTopics = [
   "Fuel supply",
   "Storage & terminals",
   "Logistics & distribution",
+  "Petroleum trading & supply",
+  "Commercial advisory & risk management",
   "Supply partnership",
   "Investment & financing",
   "Government & institutional",
@@ -38,12 +40,24 @@ export const enquiryTopics = [
 
 export const highlights = [
   { value: "Kigali, RW", label: "Head office" },
-  { value: "Mid + Down", label: "Value-chain focus" },
+  { value: "Trading + Supply", label: "Core activity" },
   { value: "Regional", label: "Growth ambition" },
   { value: "Intank Group", label: "Parent company" },
 ] as const;
 
 export const capabilities = [
+  {
+    title: "Petroleum Trading & Supply",
+    image: "/images/intank-convoy.png",
+    alt: "Intank tanker convoy carrying refined petroleum products",
+    body: "International and regional sourcing, competitive tendering, commercial negotiations and transparent pricing structures.",
+    points: [
+      "International and regional sourcing",
+      "Competitive tendering",
+      "Commercial negotiations",
+      "Transparent pricing structures",
+    ],
+  },
   {
     title: "Storage & Terminals",
     image: "/images/tank-farm.jpg",
@@ -55,30 +69,6 @@ export const capabilities = [
       "Custody and inventory management",
       "Third-party storage partnerships",
     ],
-  },
-  {
-    title:"Petroleum Trading & Supply",
-    image: "/images/intank-convoy.png",
-    alt: "Intank petroleum trading and supply operations",
-    body:" International and regional sourcing, competitive tendering, commercial negotiations and transparent pricing structures",
-    points:[
-      "International and Regional Sourcing",
-      "Competitive Tendering",
-      "Commercial Negotiations",
-      "Transparent Pricing Structures"
-    ]
-  },
-  {
-    title:"Commercial Advisory & Risk Management",
-    image:"/images/terminal-sunset.jpg",
-    alt:"Intank petroleum trading and supply operations",
-    body:"Pricing strategy, commodity hedging, exposure management and commercial performance oversight.",
-    points:[
-      "Pricing Strategy",
-      "Commodity Hedging",
-      "Exposure Management",
-      "Commercial Performance Oversight"
-    ]
   },
   {
     title: "Logistics & Distribution",
@@ -102,6 +92,18 @@ export const capabilities = [
       "Industrial, transport and mobility markets",
       "Institutional customers",
       "Wholesale and strategic channels",
+    ],
+  },
+  {
+    title: "Commercial Advisory & Risk Management",
+    image: "/images/terminal-sunset.jpg",
+    alt: "Intank petroleum terminal at sunset",
+    body: "Pricing strategy, commodity hedging, exposure management and commercial performance oversight.",
+    points: [
+      "Pricing strategy",
+      "Commodity hedging",
+      "Exposure management",
+      "Commercial performance oversight",
     ],
   },
   {
@@ -156,7 +158,13 @@ export const products = [
   { name: "Fuel Oil", use: "Industrial heating and power" },
   { name: "LPG", use: "Commercial and domestic energy" },
   { name: "Lubricants", use: "Fleet, machinery and industrial use" },
-  {name:"NGL", use:"natural gas liquids for industrial and energy applications"},
+  {
+    name: "NGL",
+    use: "Natural gas liquids for industrial and energy applications",
+    detail:
+      "Opportunities across NGL infrastructure, storage, transportation and distribution, building on our physical supply platform.",
+    points: ["Infrastructure", "Storage", "Transportation", "Distribution"],
+  },
 ] as const;
 
 export const securityOfSupply = [
@@ -167,17 +175,17 @@ export const securityOfSupply = [
   "Long-term customer and supplier relationships",
   "Commercial structures designed around continuity of supply",
   "Physical petroleum trading and supply optimisation",
-  "Commodity price risk management and hedging strategies"
+  "Commodity price risk management and hedging strategies",
 ] as const;
 
 export const strengths = [
   {
     title: "Physical Energy Focus",
-    body: "A business model centred on real petroleum products, infrastructure and logistics.",
+    body: "A business model centred on physical petroleum trading, real products, infrastructure and logistics.",
   },
   {
     title: "Integrated Capability",
-    body: "A coordinated approach spanning storage, logistics, distribution and supply.",
+    body: "A coordinated approach spanning trading, storage, logistics, distribution and supply.",
   },
   {
     title: "Strategic Relationships",

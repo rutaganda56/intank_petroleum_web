@@ -1,20 +1,15 @@
-import { marketsContent, type MarketMapCoordinate } from "@/lib/markets";
+import { marketsContent, type MarketMapCoordinate, type MarketViewId } from "@/lib/markets";
 import { marketMapCountryOutlines } from "@/lib/market-map-geography";
 
 const mapBounds = { west: 25, east: 43, south: -18, north: 5.5 };
 const mapWidth = 700;
 const mapHeight = 920;
+const viewBox = { x: -58, y: 12, width: 739, height: 791 };
 
 const countryFills = {
-  core: "rgba(38, 129, 199, 0.38)",
-  hub: "rgba(74, 159, 219, 0.24)",
-  context: "rgba(255, 255, 255, 0.035)",
-} as const;
-
-const routeStrokes = {
-  blue: "#2681c7",
-  lightBlue: "#7db6e3",
-  dashed: "#f5b85c",
+  core: "rgb(38 129 199 / 0.42)",
+  hub: "url(#markets-map-hatch)",
+  context: "rgb(255 255 255 / 0.025)",
 } as const;
 
 function project([longitude, latitude]: MarketMapCoordinate) {
@@ -23,137 +18,163 @@ function project([longitude, latitude]: MarketMapCoordinate) {
   return [x, y] as const;
 }
 
-export function MarketMap() {
+function routePath(points: readonly MarketMapCoordinate[]) {
+  return points.map((point, i) => `${i ? "L" : "M"}${project(point).join(" ")}`).join(" ");
+}
+
+export function MarketMap({ active }: { active: MarketViewId }) {
+  const view = marketsContent.views.find((v) => v.id === active)!;
+  const focus: readonly string[] = view.focus;
+  const hubView = active === "hub";
+  const [kigaliX, kigaliY] = project(marketsContent.mapLocations[0].coordinates);
+
   return (
-    <figure className="overflow-hidden rounded-3xl border border-white/10 bg-[#080d16]">
-      <svg
-        viewBox={`0 0 ${mapWidth} ${mapHeight}`}
-        role="img"
-        aria-labelledby="markets-map-title markets-map-description"
-        className="block h-auto w-full"
-      >
-        <title id="markets-map-title">Intank Petroleum’s East and southern Africa markets</title>
-        <desc id="markets-map-description">{marketsContent.mapDescription}</desc>
-        <defs>
-          <pattern id="markets-map-grid" width="56" height="56" patternUnits="userSpaceOnUse">
-            <path d="M 56 0 L 0 0 0 56" fill="none" stroke="rgba(255,255,255,0.035)" strokeWidth="1" />
-          </pattern>
-          <clipPath id="markets-map-clip">
-            <rect width={mapWidth} height={mapHeight} />
-          </clipPath>
-        </defs>
-        <rect width={mapWidth} height={mapHeight} fill="#080d16" />
-        <rect width={mapWidth} height={mapHeight} fill="url(#markets-map-grid)" />
+    <svg
+      viewBox={`${viewBox.x} ${viewBox.y} ${viewBox.width} ${viewBox.height}`}
+      role="img"
+      aria-labelledby="markets-map-title markets-map-description"
+      className="block size-full"
+    >
+      <title id="markets-map-title">Intank Petroleum’s East African markets and supply corridors</title>
+      <desc id="markets-map-description">{marketsContent.mapDescription}</desc>
+      <defs>
+        <pattern id="markets-map-grid" width="48" height="48" patternUnits="userSpaceOnUse">
+          <path d="M 48 0 L 0 0 0 48" fill="none" stroke="rgb(255 255 255 / 0.03)" strokeWidth="1" />
+        </pattern>
+        <pattern id="markets-map-hatch" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+          <rect width="8" height="8" fill="rgb(74 159 219 / 0.07)" />
+          <line x1="0" y1="0" x2="0" y2="8" stroke="rgb(74 159 219 / 0.28)" strokeWidth="1.5" />
+        </pattern>
+        <radialGradient id="markets-map-glow">
+          <stop offset="0%" stopColor="#4a9fdb" stopOpacity="0.35" />
+          <stop offset="100%" stopColor="#4a9fdb" stopOpacity="0" />
+        </radialGradient>
+      </defs>
+      <rect {...viewBox} fill="url(#markets-map-grid)" />
 
-        <g clipPath="url(#markets-map-clip)">
-          {marketMapCountryOutlines.map((country) => (
-            <path
-              key={country.name}
-              d={country.path}
-              fill={countryFills[country.group]}
-              fillRule="evenodd"
-              stroke="rgba(211, 226, 242, 0.28)"
-              strokeWidth="1.2"
-              vectorEffect="non-scaling-stroke"
-            />
-          ))}
+      {marketMapCountryOutlines.map((country) => {
+        const inFocus = focus.includes(country.name);
+        return (
+          <path
+            key={country.name}
+            d={country.path}
+            fill={inFocus && country.group === "context" ? "rgb(74 159 219 / 0.1)" : countryFills[country.group]}
+            fillRule="evenodd"
+            stroke={inFocus ? "rgb(125 182 227 / 0.75)" : "rgb(211 226 242 / 0.16)"}
+            strokeWidth={inFocus ? 1.5 : 1}
+            vectorEffect="non-scaling-stroke"
+            className="transition-[fill,stroke] duration-500"
+          />
+        );
+      })}
 
-          {marketsContent.corridors.map((corridor) => (
-            <polyline
-              key={corridor.name}
-              points={corridor.points.map((coordinate) => project(coordinate).join(",")).join(" ")}
-              fill="none"
-              stroke={routeStrokes[corridor.style]}
-              strokeWidth="3"
-              strokeDasharray={corridor.style === "dashed" ? "8 9" : undefined}
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              vectorEffect="non-scaling-stroke"
-            />
-          ))}
+      <circle
+        cx={kigaliX}
+        cy={kigaliY}
+        r="70"
+        fill="url(#markets-map-glow)"
+        className="transition-transform duration-700 ease-out-expo [transform-box:fill-box] [transform-origin:center]"
+        style={{ transform: hubView ? "scale(1.7)" : "scale(1)" }}
+      />
 
-          {marketsContent.countryLabels.map((label) => {
-            const [x, y] = project(label.coordinates);
-            return (
-              <text
-                key={label.name}
-                x={x}
-                y={y}
-                fill="rgba(231, 239, 248, 0.68)"
-                fontFamily="Inter, Arial, sans-serif"
-                fontSize="12"
-                fontWeight="600"
-                letterSpacing="1.4"
-                textAnchor="middle"
-              >
-                {label.name}
-              </text>
-            );
-          })}
+      {marketsContent.countryLabels.map((label) => {
+        const [x, y] = project(label.coordinates);
+        return (
+          <text
+            key={label.name}
+            x={x}
+            y={y}
+            fill="rgb(231 239 248 / 0.5)"
+            fontWeight="500"
+            letterSpacing="1.6"
+            textAnchor="middle"
+            className="text-[20px] sm:text-[11px]"
+          >
+            {label.name}
+          </text>
+        );
+      })}
 
-          {marketsContent.mapLocations.map((location) => {
-            const [x, y] = project(location.coordinates);
-            const isHub = location.kind === "hub";
-            return (
-              <g key={location.name}>
-                {isHub && (
-                  <circle
-                    cx={x}
-                    cy={y}
-                    r="12"
-                    fill="none"
-                    stroke={routeStrokes.blue}
-                    strokeOpacity="0.55"
-                    strokeWidth="2"
-                    vectorEffect="non-scaling-stroke"
-                  />
-                )}
+      {marketsContent.views.map((v) =>
+        v.routes.map((route, i) => {
+          const isActive = v.id === active;
+          return (
+            <g key={`${v.id}-${i}`} className="transition-opacity duration-500" opacity={isActive ? 1 : 0.4}>
+              <path
+                d={routePath(route)}
+                fill="none"
+                stroke={v.id === "hub" ? "#7db6e3" : "#2681c7"}
+                strokeWidth={isActive ? 3.5 : 2}
+                strokeDasharray={v.id === "mozambique" ? "7 8" : undefined}
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                vectorEffect="non-scaling-stroke"
+              />
+              {isActive && (
+                <path
+                  d={routePath(route)}
+                  fill="none"
+                  stroke="#f5f6f8"
+                  strokeWidth="3"
+                  strokeDasharray="2 22"
+                  strokeLinecap="round"
+                  vectorEffect="non-scaling-stroke"
+                  className="market-flow"
+                />
+              )}
+            </g>
+          );
+        }),
+      )}
+
+      {marketsContent.mapLocations.map((location) => {
+        if ("only" in location && location.only !== active) return null;
+        const [x, y] = project(location.coordinates);
+        const isHub = location.kind === "hub";
+        const isCity = location.kind === "city";
+        return (
+          <g key={location.name}>
+            {isHub && (
+              <>
+                <circle cx={x} cy={y} r={hubView ? 16 : 10} fill="#2681c7" className="market-pulse" />
                 <circle
                   cx={x}
                   cy={y}
-                  r={isHub ? "5.5" : "4.5"}
-                  fill={isHub ? routeStrokes.blue : "#f5f6f8"}
-                  stroke="#080d16"
-                  strokeWidth="2"
+                  r={hubView ? 14 : 11}
+                  fill="none"
+                  stroke="#4a9fdb"
+                  strokeOpacity="0.6"
+                  strokeWidth="1.5"
                   vectorEffect="non-scaling-stroke"
                 />
-                <text
-                  x={x + location.dx}
-                  y={y + location.dy}
-                  fill="#f5f6f8"
-                  fontFamily="Inter, Arial, sans-serif"
-                  fontSize="14"
-                  fontWeight={isHub ? "700" : "600"}
-                  paintOrder="stroke"
-                  stroke="#080d16"
-                  strokeLinejoin="round"
-                  strokeWidth="4"
-                >
-                  {location.name}
-                </text>
-              </g>
-            );
-          })}
-        </g>
-      </svg>
-
-      <figcaption className="flex flex-col gap-4 border-t border-white/10 px-5 py-4 sm:flex-row sm:items-center sm:justify-between sm:px-7">
-        <span className="text-sm font-medium text-white/75">Illustrative map</span>
-        <ul aria-label="Map legend" className="flex flex-wrap gap-x-5 gap-y-2 text-xs text-white/65">
-          <li className="flex items-center gap-2">
-            <span aria-hidden="true" className="size-2.5 rounded-sm bg-brand" />
-            Core markets
-          </li>
-          <li className="flex items-center gap-2">
-            <span aria-hidden="true" className="size-2.5 rounded-sm bg-brand-bright/70" />
-            Hub-served markets
-          </li>
-          <li className="flex items-center gap-2">
-            <span aria-hidden="true" className="w-5 border-t-2 border-dashed border-amber-300" />
-            Indicative corridor
-          </li>
-        </ul>
-      </figcaption>
-    </figure>
+              </>
+            )}
+            <circle
+              cx={x}
+              cy={y}
+              r={isHub ? 6 : isCity ? 3.5 : 4.5}
+              fill={isHub ? "#4a9fdb" : "#f5f6f8"}
+              stroke="#0a0f1a"
+              strokeWidth="2"
+              vectorEffect="non-scaling-stroke"
+            />
+            <text
+              x={x + location.dx}
+              y={y + location.dy}
+              fill={isCity ? "rgb(245 246 248 / 0.8)" : "#f5f6f8"}
+              fontWeight={isHub ? 600 : 500}
+              textAnchor={location.anchor}
+              paintOrder="stroke"
+              stroke="#0a0f1a"
+              strokeLinejoin="round"
+              strokeWidth="4"
+              className={isCity ? "text-[20px] sm:text-[12px]" : "text-[24px] sm:text-[14px]"}
+            >
+              {location.name}
+            </text>
+          </g>
+        );
+      })}
+    </svg>
   );
 }

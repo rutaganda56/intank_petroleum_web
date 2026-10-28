@@ -20,7 +20,7 @@
 
 @theme inline {
     --font-heading: var(--font-grotesk);
-    --font-sans: var(--font-inter);
+    --font-sans: var(--font-grotesk);
     --font-mono: var(--font-jetbrains);
     --color-sidebar-ring: var(--sidebar-ring);
     --color-sidebar-border: var(--sidebar-border);
@@ -242,6 +242,36 @@
     }
 }
 
+.market-flow {
+    animation: market-flow 1.2s linear infinite;
+}
+
+@keyframes market-flow {
+    to { stroke-dashoffset: -24; }
+}
+
+.market-pulse {
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: market-pulse 2.4s ease-out infinite;
+}
+
+@keyframes market-pulse {
+    from { transform: scale(0.6); opacity: 0.6; }
+    to { transform: scale(2.6); opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .market-flow,
+    .market-pulse {
+        animation: none;
+    }
+
+    .market-pulse {
+        opacity: 0.25;
+    }
+}
+
 /* Loading placeholder for media: a soft band of light sweeping across. */
 .skeleton {
     overflow: hidden;
@@ -281,6 +311,10 @@
 
 @utility label-text {
     @apply text-sm font-medium;
+}
+
+@utility lead-text {
+    @apply text-base leading-relaxed sm:text-lg;
 }
 
 /* Text animated by GSAP stays hidden until it has been split, to avoid a flash of

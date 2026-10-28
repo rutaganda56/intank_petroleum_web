@@ -12,9 +12,10 @@ export function Security() {
           <SplitHeading accent="every link in the chain." accentClassName="text-brand-bright" className="font-heading text-4xl leading-tight font-medium sm:text-5xl">
             Reducing uncertainty at every link in the chain.
           </SplitHeading>
-          <Reveal className="mt-6 leading-relaxed text-white/60">
-            Security of supply is central to our business model. We combine reliable sourcing, appropriate
-            storage, coordinated logistics and strong relationships across the physical petroleum market.
+          <Reveal className="lead-text mt-6 text-white/60">
+            Security of supply is central to our business model. We combine physical trading, reliable
+            sourcing, appropriate storage, coordinated logistics, price risk management and strong
+            relationships across the petroleum market.
           </Reveal>
           <ul className="mt-10 divide-y divide-white/10 border-y border-white/10">
             {securityOfSupply.map((item, i) => (

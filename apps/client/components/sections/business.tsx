@@ -12,9 +12,9 @@ export function Business() {
               Moving petroleum from supply point to end user.
             </SplitHeading>
           </div>
-          <Reveal className="max-w-md text-white/60">
-            Our business is organised around connected areas of activity, from bulk storage and product
-            management to logistics, distribution and strategic supply.
+          <Reveal className="lead-text max-w-md text-white/60">
+            Our business is organised around connected areas of activity, from petroleum trading and supply
+            to storage, logistics, distribution and commercial risk management.
           </Reveal>
         </div>
 

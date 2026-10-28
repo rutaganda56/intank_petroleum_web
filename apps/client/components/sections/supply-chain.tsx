@@ -57,7 +57,7 @@ export function SupplyChain() {
           >
             Seven linked stages, one dependable supply chain.
           </SplitHeading>
-          <p className="max-w-sm text-white/55">Select a stage to see how product moves from source to customer.</p>
+          <p className="lead-text max-w-sm text-white/55">Select a stage to see how product moves from source to customer.</p>
         </div>
 
         {/* Desktop: horizontal stepper with a detail panel */}
@@ -123,7 +123,7 @@ export function SupplyChain() {
                   <span className="font-heading text-7xl font-medium text-brand-bright/25">{pad(active)}</span>
                   <div>
                     <h3 className="font-heading text-3xl font-medium">{step.name}</h3>
-                    <p className="mt-3 max-w-2xl text-lg leading-relaxed text-white/65">{step.body}</p>
+                    <p className="mt-3 max-w-2xl leading-relaxed text-white/65">{step.body}</p>
                   </div>
                 </motion.div>
               </AnimatePresence>

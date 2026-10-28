@@ -1,19 +1,12 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, JetBrains_Mono, Space_Grotesk } from "next/font/google";
+import { JetBrains_Mono, Space_Grotesk } from "next/font/google";
 import { Providers } from "@/components/providers";
 import { SiteFooter } from "@/components/site/site-footer";
 import { SiteHeader } from "@/components/site/site-header";
 import "./globals.css";
 
-// Same type system as the current intankpetroleum.com holding page: Space Grotesk headings,
-// Inter body text and JetBrains Mono labels.
 const grotesk = Space_Grotesk({
   variable: "--font-grotesk",
-  subsets: ["latin"],
-});
-
-const inter = Inter({
-  variable: "--font-inter",
   subsets: ["latin"],
 });
 
@@ -28,7 +21,7 @@ export const metadata: Metadata = {
     template: "%s | Intank Petroleum",
   },
   description:
-    "Intank Petroleum is a Kigali-based physical energy company providing petroleum storage, terminals, logistics, distribution and fuel supply across East Africa.",
+    "Intank Petroleum is a Kigali-based physical energy trading company providing international petroleum trading, supply, storage, logistics and distribution across East Africa.",
 };
 
 export const viewport: Viewport = {
@@ -40,7 +33,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     // suppressHydrationWarning: the inline script below adds a "js" class to <html> before React hydrates.
     <html
       lang="en"
-      className={`${grotesk.variable} ${inter.variable} ${mono.variable} h-full antialiased`}
+      className={`${grotesk.variable} ${mono.variable} h-full antialiased`}
       suppressHydrationWarning
     >
       <head>
