@@ -96,7 +96,7 @@ export const capabilities = [
   },
   {
     title: "Commercial Advisory & Risk Management",
-    image: "/images/terminal-sunset.jpg",
+    image: "/images/trade_showcase.png",
     alt: "Intank petroleum terminal at sunset",
     body: "Pricing strategy, commodity hedging, exposure management and commercial performance oversight.",
     points: [
