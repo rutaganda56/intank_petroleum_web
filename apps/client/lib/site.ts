@@ -48,7 +48,7 @@ export const highlights = [
 export const capabilities = [
   {
     title: "Petroleum Trading & Supply",
-    image: "/images/intank-convoy.png",
+    image: "/images/tankeronport.png",
     alt: "Intank tanker convoy carrying refined petroleum products",
     body: "International and regional sourcing, competitive tendering, commercial negotiations and transparent pricing structures.",
     points: [
